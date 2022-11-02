@@ -1,0 +1,5 @@
+dumps/*
+!dumps/.gitkeep
+temp
+.DS_Store
+**/.idea

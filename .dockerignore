@@ -1,0 +1,7 @@
+**/.idea
+**/.git
+**/node_modules
+**/out
+**/.DS_Store
+dumps
+temp

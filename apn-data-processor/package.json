@@ -1,0 +1,21 @@
+{
+  "name": "apn-data-processor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "fetchMeta": "babel-node src/runner.js fetchMeta",
+    "analyze": "babel-node src/runner.js analyze"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pg": "^8.8.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@babel/node": "^7.20.0"
+  }
+}

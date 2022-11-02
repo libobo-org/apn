@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres
+    container_name: apn-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "VLGdlklS#92Sq9!M^PE3%*WY91c^L5GO"
+      POSTGRES_DB: "apn-db"
+    ports:
+      - "5439:5432"
+
+  pgadmin:
+    container_name: apn-pgadmin4
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: WFZbVgFBDE63j3YQ
+    ports:
+      - "5059:80"
+volumes:
+  pgdata:
