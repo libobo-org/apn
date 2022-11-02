@@ -4,6 +4,7 @@ import {
   fetchMeta,
   analyze,
 } from './index.js';
+import chart from './chart.js';
 
 const require = createRequire(import.meta.url);
 const exists = async path => !!(await fs.stat(path).catch(e => false));
@@ -18,8 +19,11 @@ const runner = {
     await fs.writeFile('./out/meta.json', JSON.stringify(data));
   },
   async analyze() {
-    const data = await analyze();
-    await fs.writeFile('./out/analyze.json', JSON.stringify(data));
+    await analyze();
+  },
+  async genSampleChart() {
+    const data = await chart.sample();
+    await fs.writeFile('./out/sample.png', data, 'base64');
   },
 };
 
