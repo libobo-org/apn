@@ -1,0 +1,18 @@
+{
+  "name": "apn-data-extractor",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "fetchMeta": "babel-node runner.js fetchMeta",
+    "fetchTnvedAll": "babel-node runner.js fetchTnvedAll",
+    "fetchGispProductsAll": "babel-node runner.js fetchGispProductsAll",
+    "fetchGispOrganizationsAll": "babel-node runner.js fetchGispOrganizationsAll",
+    "fetchCustomsDataAll": "babel-node runner.js fetchCustomsDataAll",
+    "fetchOrganizationsInfo": "babel-node runner.js fetchOrganizationsInfo",
+    "merge": "babel-node runner.js mergeShit",
+    "validateProductsTnveds": "babel-node runner.js validateProductsTnveds"
+  },
+  "dependencies": {
+    "jsdom": "^20.0.1"
+  }
+}

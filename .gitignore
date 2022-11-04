@@ -1,0 +1,9 @@
+dumps/*
+!dumps/.gitkeep
+logs/*
+!logs/.gitkeep
+temp
+.DS_Store
+**/.idea
+**/.env*.local
+.env
