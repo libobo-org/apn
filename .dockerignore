@@ -1,8 +1,10 @@
 **/.idea
 **/.git
 **/node_modules
+**/dist
 **/out
 **/.DS_Store
+**/npm-debug.log
 dumps
 logs
 temp
