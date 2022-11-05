@@ -11,10 +11,10 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 fun Application.module() {
 
     Database.connect(
-        "jdbc:pgsql://${DatabaseMetadata.address}",
+        "jdbc:pgsql://${DatabaseMetadata.getAddress()}",
         driver = "com.impossibl.postgres.jdbc.PGDriver",
-        user = DatabaseMetadata.user,
-        password = DatabaseMetadata.password
+        user = DatabaseMetadata.getUser(),
+        password = DatabaseMetadata.getPassword()
     )
 
     initRoutes()
