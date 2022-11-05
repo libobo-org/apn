@@ -7,16 +7,24 @@
   "scripts": {
     "fetchMeta": "babel-node src/runner.js fetchMeta",
     "analyze": "babel-node src/runner.js analyze",
-    "genSampleChart": "babel-node src/runner.js genSampleChart"
+    "genSampleChart": "babel-node src/runner.js genSampleChart",
+    "bff": "babel-node src/bff.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@koa/cors": "^4.0.0",
+    "@koa/router": "^12.0.0",
     "@tensorflow/tfjs": "^4.0.0",
     "chart.js": "^3.9.1",
     "chartjs-node-canvas": "^4.1.6",
     "dotenv": "^16.0.3",
+    "koa": "^2.13.4",
+    "koa-bodyparser": "^4.3.0",
+    "koa-logger": "^3.2.1",
+    "koa-qs": "^3.0.0",
+    "koa-router": "^12.0.0",
     "pg": "^8.8.0"
   },
   "devDependencies": {

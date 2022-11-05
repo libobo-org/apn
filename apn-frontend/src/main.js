@@ -6,6 +6,7 @@ import vuetify from './plugins/vuetify';
 import 'roboto-fontface/css/roboto/roboto-fontface.css';
 import '@mdi/font/css/materialdesignicons.css';
 import './style-dipp.css';
+import api from './api/index.js';
 
 Vue.config.productionTip = false;
 
@@ -143,6 +144,7 @@ Vue.prototype.$api = {
       }
     },
   },
+  main: api,
 };
 
 const app = new Vue({

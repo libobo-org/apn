@@ -1,49 +1,4 @@
-import {makeClient} from './db.js';
-import {loadSql} from './fs.js';
-import {promises as fs} from 'fs';
-import chart from './chart.js';
-
-export async function fetchMeta() {
-  try {
-    const client = await makeClient();
-    let res = await client.query('SELECT $1::text as title', ['Meta data']);
-    const title = res.rows[0].title;
-    res = await client.query('select count(*) from notes');
-    const notesCount = res.rows[0].count;
-    const sql = await loadSql('notes-count.sql');
-    res = await client.query(sql);
-    const notesCount2 = res.rows[0].count;
-    await client.end();
-    return {
-      title,
-      notesCount,
-      notesCount2,
-    };
-  } catch (e) {
-    console.error('Errored fetchMeta');
-    console.error(e);
-    return null;
-  }
-}
-
-export async function analyze(tnved = '0102211000') {
-  // const tnved = '0102211000';
-  // const tnved = '0102';
-  let timeSeries = null;
-  const client = await makeClient();
-  try {
-    const sql = await loadSql('tnved-time-series.sql');
-    const res = await client.query(sql, [tnved.length, tnved]);
-    timeSeries = res.rows;
-    await client.end();
-  } catch (e) {
-    console.error('Errored tnved-time-series.sql');
-    console.error(e);
-    return null;
-  }
-
-  return timeSeries;
-  // await fs.writeFile(`./out/ts-${tnved}.json`, JSON.stringify(timeSeries));
+export function generateTnvedAnalytics(timeSeries) {
   const labels = timeSeries.map(el => `${el.month}.${el.year}`);
   const timeSeriesData = {
     ex_notes_count: timeSeries.map(el => parseFloat(el.ex_notes_count)),
@@ -132,14 +87,15 @@ export async function analyze(tnved = '0102211000') {
   const configuration1 = createConfiguration(datasets1);
   const configuration2 = createConfiguration(datasets2);
 
-  const chartData1 = await chart.generateChart(configuration1);
-  const chartData2 = await chart.generateChart(configuration2);
+  // const chartData1 = await chart.generateChart(configuration1);
+  // const chartData2 = await chart.generateChart(configuration2);
 
-  await fs.writeFile(`./out/ts-${tnved}-1.png`, chartData1, 'base64');
-  await fs.writeFile(`./out/ts-${tnved}-2.png`, chartData2, 'base64');
+  return {
+    configuration1,
+    configuration2,
+  };
 }
 
 export default {
-  fetchMeta,
-  analyze,
+  generateTnvedAnalytics,
 };

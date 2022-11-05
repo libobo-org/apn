@@ -287,17 +287,17 @@ async function fetchOrganizationInfoFromListorg(ogrn = 1022402060878) {
   const tableElement = dom.window.document.querySelector('#rep_table');
   res.report = tableElement.getAttribute('data-years').split(',').map((year, i) => {
     let income = null;
-    let profit = null;
+    let outcome = null;
     try {
-      income = parseFloat(Array.from(tableElement.querySelectorAll('td')).find(el => el.textContent === 'Ф1.1600').parentNode.childNodes[3 + i].textContent) * 1000;
+      income = parseFloat(Array.from(tableElement.querySelectorAll('td')).find(el => el.textContent === 'Ф2.2110').parentNode.childNodes[3 + i].textContent) * 1000;
     } catch {}
     try {
-      profit = parseFloat(Array.from(tableElement.querySelectorAll('td')).find(el => el.textContent === 'Ф2.2200').parentNode.childNodes[3 + i].textContent) * 1000;
+      outcome = parseFloat(Array.from(tableElement.querySelectorAll('td')).find(el => el.textContent === 'Ф2.2120').parentNode.childNodes[3 + i].textContent) * 1000;
     } catch {}
     return {
       year,
       income,
-      profit,
+      profit: income - outcome,
     };
   });
   return res;
@@ -314,7 +314,7 @@ export async function fetchOrganizationsInfoFromListorg(organizations = []) {
       res[`${organizations[i]}`] = await fetchOrganizationInfoFromListorg(organizations[i]);
       // await new Promise(r => setTimeout(r, parseInt(Math.random() * 20) * 100));
     } catch(e) {
-      // await new Promise(r => setTimeout(r, parseInt(Math.random() * 3) * 1000 + 2000));
+      await new Promise(r => setTimeout(r, parseInt(Math.random() * 3) * 1000 + 5000));
       console.error(`Items errored: ${i + 1} - ${organizations[i]}`);
       console.error(e)
     }
@@ -619,6 +619,40 @@ export async function validateProductsTnveds(products, tnveds) {
   // });
 }
 
+export async function fetchAndFixIncomes(organizationsInfo) {
+  for (let [ogrn, org] of Object.entries(organizationsInfo).slice(0, 5)) {
+    if (!org.inn) {
+      org.report = null;
+      continue;
+    }
+    console.log(org.inn);
+    const response = await fetch(`https://egrul.itsoft.ru/${org.inn}.json`);
+    const json = await response.json();
+    if (!org.report?.length) {
+      continue;
+    }
+    org.report.forEach((r, index) => {
+      r.balance = r.income;
+      r.income = null;
+      organizationsInfo[ogrn].report[index].outcome = null;
+      r.profit = null;
+      if (!r.year) {
+        return;
+      }
+      if (json?.fin) {
+        const yearData = json.fin?.[`y${r.year}`]?.['@attributes'];
+        if (yearData) {
+          r.income = parseInt(yearData.income);
+          r.outcome = parseInt(yearData.outcome);
+          r.profit = r.income - r.outcome;
+        }
+      }
+    });
+    // console.log(org.inn, ogrn);
+  }
+  return organizationsInfo;
+}
+
 export default {
   downloadObjectAsJson,
   downloadJsonMeta,
@@ -636,4 +670,5 @@ export default {
   fetchOrganizationInfoFromPbnalog,
   fetchOrganizationsInfoFromPbnalog,
   validateProductsTnveds,
+  fetchAndFixIncomes,
 };
