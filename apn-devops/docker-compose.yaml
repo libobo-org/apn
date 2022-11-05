@@ -39,5 +39,14 @@ services:
     ports:
       - "3000:3000"
 
+  backend:
+    build:
+      context: ..
+      dockerfile: ./apn-backend/Dockerfile
+    container_name: apn-backend
+    restart: always
+    ports:
+      - "4000:8080"
+
 volumes:
   pgdata:

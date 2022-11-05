@@ -3,7 +3,7 @@
 ## init new server
 
 ```sh
-cd ~/work/lackhite/apn
+cd apn
 scp apn-devops/init-vps.sh root@<IP>:/root/apn/init-vps.sh
 scp apn-devops/docker-compose.yaml root@<IP>:/root/apn/docker-compose.yaml
 ssh root@<IP>
@@ -23,7 +23,7 @@ pg_dump -U postgres apn-db | gzip > dump.sql.gz
 exit
 sudo docker cp apn-postgres:/dump.sql.gz dump.sql.gz
 exit
-cd ~/work/lackhite/apn
+cd apn
 scp ubuntu@<OLD_IP>:~/apn/dump.sql.gz dump.sql.gz
 ```
 

@@ -27,9 +27,10 @@ export default {
         this.isLoading = true;
         const response = await fetch(`http://localhost:3000/analyze/tnved-analyze?tnved=${this.tnvedInput}`);
         const json = await response.json();
-        const c = this.$api.main.analyze.generateTnvedAnalytics(json.data);
-        this.configuration1 = c.configuration1;
-        this.configuration2 = c.configuration2;
+        const chartDatasetsKeys1 = ['ex_notes_count', 'im_notes_count', 'ex_kol_sum', 'im_kol_sum'];
+        const chartDatasetsKeys2 = ['ex_cost_sum', 'im_cost_sum', 'ex_cost_by_one_kol_avg', 'im_cost_by_one_kol_avg', 'ex_cost_by_one_note_avg', 'im_cost_by_one_note_avg'];
+        this.configuration1 = this.$api.main.analyze.generateTnvedAnalytics(json.data, chartDatasetsKeys1);
+        this.configuration2 = this.$api.main.analyze.generateTnvedAnalytics(json.data, chartDatasetsKeys2);
       } catch (e) {
         this.$api.app.snackError('Не удалось произвести расчет');
         console.error(e);

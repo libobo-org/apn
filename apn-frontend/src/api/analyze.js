@@ -1,4 +1,21 @@
-export function generateTnvedAnalytics(timeSeries) {
+export function createConfiguration(datasets, labels) {
+  return {
+    type: 'line', // for line chart
+    data: {
+      labels,
+      datasets,
+    },
+    options: {
+      scales: {
+        y: {
+          suggestedMin: 0,
+        }
+      }
+    }
+  };
+}
+
+export function generateTnvedAnalytics(timeSeries, chartDatasetsKeys) {
   const labels = timeSeries.map(el => `${el.month}.${el.year}`);
   const timeSeriesData = {
     ex_notes_count: timeSeries.map(el => parseFloat(el.ex_notes_count)),
@@ -46,10 +63,7 @@ export function generateTnvedAnalytics(timeSeries) {
     },
   };
 
-  const chartDatasetsKeys1 = ['ex_notes_count', 'im_notes_count', 'ex_kol_sum', 'im_kol_sum'];
-  const chartDatasetsKeys2 = ['ex_cost_sum', 'im_cost_sum', 'ex_cost_by_one_kol_avg', 'im_cost_by_one_kol_avg', 'ex_cost_by_one_note_avg', 'im_cost_by_one_note_avg'];
-
-  const datasets1 = chartDatasetsKeys1.map(k => ({
+  const datasets = chartDatasetsKeys.map(k => ({
     label: k,
     data: timeSeriesData[k],
     fill: false,
@@ -58,42 +72,7 @@ export function generateTnvedAnalytics(timeSeries) {
     xAxisID: 'xAxis1', // define top or bottom axis, modifies on scale
   }));
 
-  const datasets2 = chartDatasetsKeys2.map(k => ({
-    label: k,
-    data: timeSeriesData[k],
-    fill: false,
-    borderColor: timeSeriesDataMeta[k].borderColor,
-    borderWidth: 1,
-    xAxisID: 'xAxis1', // define top or bottom axis, modifies on scale
-  }));
-
-  function createConfiguration(datasets) {
-    return {
-      type: 'line', // for line chart
-      data: {
-        labels,
-        datasets,
-      },
-      options: {
-        scales: {
-          y: {
-            suggestedMin: 0,
-          }
-        }
-      }
-    };
-  }
-
-  const configuration1 = createConfiguration(datasets1);
-  const configuration2 = createConfiguration(datasets2);
-
-  // const chartData1 = await chart.generateChart(configuration1);
-  // const chartData2 = await chart.generateChart(configuration2);
-
-  return {
-    configuration1,
-    configuration2,
-  };
+  return createConfiguration(datasets, labels);
 }
 
 export default {
