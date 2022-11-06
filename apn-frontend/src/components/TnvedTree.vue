@@ -5,11 +5,11 @@
       :load-children="fetchTnveds"
       :items="tnveds"
       selected-color="indigo"
-      open-on-click
       selectable
       return-object
       expand-icon="mdi-chevron-down"
       dense
+      selection-type="independent"
   >
     <template v-slot:label="{ item }">
       <b>{{item.id}}</b><span class="mx-1">-</span>{{item.name}}

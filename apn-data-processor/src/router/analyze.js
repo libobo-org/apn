@@ -8,7 +8,7 @@ router.get('/tnved-analyze', async (ctx, next) => {
   if (!ctx.query.tnved) {
     throw new Error('Undefined tnved')
   }
-  const data = await analyze(ctx.params.tnved);
+  const data = await analyze(ctx.query.tnved);
   ctx.body = {
     data,
     success: true,

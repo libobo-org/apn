@@ -8,15 +8,22 @@
     "fetchMeta": "babel-node src/runner.js fetchMeta",
     "analyze": "babel-node src/runner.js analyze",
     "genSampleChart": "babel-node src/runner.js genSampleChart",
-    "bff": "babel-node src/bff.js"
+    "bff": "babel-node src/bff.js",
+    "build": "rimraf dist && cross-env NODE_ENV=production babel src --out-dir dist --source-maps inline",
+    "start-bff": "node dist/bff.js",
+    "checkARIMA": "babel-node src/runner.js checkARIMA",
+    "checkNostradamus": "babel-node src/runner.js checkNostradamus",
+    "checkTrend": "babel-node src/runner.js checkTrend"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/preset-env": "^7.20.2",
     "@koa/cors": "^4.0.0",
     "@koa/router": "^12.0.0",
     "@tensorflow/tfjs": "^4.0.0",
+    "arima": "^0.2.5",
     "chart.js": "^3.9.1",
     "chartjs-node-canvas": "^4.1.6",
     "dotenv": "^16.0.3",
@@ -25,10 +32,14 @@
     "koa-logger": "^3.2.1",
     "koa-qs": "^3.0.0",
     "koa-router": "^12.0.0",
+    "nostradamus": "^0.1.0",
     "pg": "^8.8.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.19.3",
     "@babel/core": "^7.19.6",
-    "@babel/node": "^7.20.0"
+    "@babel/node": "^7.20.0",
+    "cross-env": "^7.0.3",
+    "rimraf": "^3.0.2"
   }
 }
