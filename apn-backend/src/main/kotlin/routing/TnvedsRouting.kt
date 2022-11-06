@@ -1,7 +1,9 @@
 package routing
 
+import bo.Rights
 import database.dbo.TnvedDBO
 import database.tables.Tnveds
+import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.*
 import io.ktor.server.response.*
@@ -14,6 +16,11 @@ import org.jetbrains.exposed.sql.transactions.transaction
 fun Route.tnvedsRouting() {
     route("tnveds") {
         get("/all") {
+            val rights = call.checkAuth()
+            if (!rights.contains(Rights.READ)) {
+                call.respond(HttpStatusCode.Forbidden)
+                return@get
+            }
             val limit = call.getLimitOrThrow()
             val offset = call.getOffset()
             val tnvedsList = transaction {
@@ -24,6 +31,11 @@ fun Route.tnvedsRouting() {
             call.respond(tnvedsList)
         }
         get("/{id}") {
+            val rights = call.checkAuth()
+            if (!rights.contains(Rights.READ)) {
+                call.respond(HttpStatusCode.Forbidden)
+                return@get
+            }
             val id = call.parameters["id"] ?: throw BadRequestException("Incorrect tnved id")
             val tnved = transaction {
                 TnvedDBO[id].toDTO()
@@ -31,6 +43,11 @@ fun Route.tnvedsRouting() {
             call.respond(tnved)
         }
         get("/by_name") {
+            val rights = call.checkAuth()
+            if (!rights.contains(Rights.READ)) {
+                call.respond(HttpStatusCode.Forbidden)
+                return@get
+            }
             val limit = call.getLimitOrThrow()
             val offset = call.getOffset()
             val tnvedNames = call.getTnvedNames()

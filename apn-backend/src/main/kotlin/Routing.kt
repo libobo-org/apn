@@ -37,5 +37,6 @@ private fun Application.initRoutes() {
         countriesRouting()
         federalDistrictsRouting()
         subjectsRouting()
+        rightsRouting()
     }
 }
