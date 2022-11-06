@@ -55,8 +55,14 @@ fun Route.tnvedsRouting() {
                 Tnveds.selectAll()
                     .also { query ->
                         tnvedNames.forEach { name ->
-                            query.andWhere {
-                                Tnveds.name like "%${name.uppercase()}%"
+                            if (name.all { c -> c.isDigit() }) {
+                                query.andWhere {
+                                    Tnveds.id like "${name.uppercase()}%"
+                                }
+                            } else {
+                                query.andWhere {
+                                    Tnveds.name like "%${name.uppercase()}%"
+                                }
                             }
                         }
                     }
