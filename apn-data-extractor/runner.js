@@ -8,6 +8,7 @@ import {
   fetchGispOrganizationsAll,
   fetchOrganizationsInfoFromListorg,
   validateProductsTnveds,
+  fetchAndFixIncomes,
 } from './index.js';
 
 const require = createRequire(import.meta.url);
@@ -190,6 +191,11 @@ const runner = {
     // await fs.writeFile('./out/tnveds-fixed.json', JSON.stringify(tnvedsFixed, null, 2));
     // const d2 = d.filter(s => s && !s.includes(';') && s.length > 10).map(s => `"${s}"`);
     // await fs.writeFile('./out/tnveds-wtf1.txt', d2.join('\n'));
+  },
+  async fetchAndFixIncomes() {
+    const organizationsInfo = require('./out/gisp-organizations-info.json');
+    const data = await fetchAndFixIncomes(organizationsInfo);
+    await fs.writeFile('./out/gisp-organizations-info-fixed.json', JSON.stringify(data, null, 2));
   },
 };
 

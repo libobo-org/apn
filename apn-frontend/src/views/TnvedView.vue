@@ -8,15 +8,24 @@
           class="my-2"
           hide-details
       />
-      <TnvedTree/>
+      <v-btn depressed @click="showTree">show tree</v-btn>
+      <TnvedDialog v-model="isShowDialog"/>
     </v-sheet>
   </div>
 </template>
 
 <script>
-import TnvedTree from "@/components/TnvedTree";
+import TnvedDialog from "@/components/TnvedDialog";
 export default {
   name: 'TnvedView',
-  components: {TnvedTree},
+  components: {TnvedDialog},
+  data: () => ({
+    isShowDialog: false,
+  }),
+  methods: {
+    showTree() {
+      this.isShowDialog = true;
+    },
+  },
 };
 </script>

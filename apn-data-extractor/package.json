@@ -10,9 +10,12 @@
     "fetchCustomsDataAll": "babel-node runner.js fetchCustomsDataAll",
     "fetchOrganizationsInfo": "babel-node runner.js fetchOrganizationsInfo",
     "merge": "babel-node runner.js mergeShit",
-    "validateProductsTnveds": "babel-node runner.js validateProductsTnveds"
+    "validateProductsTnveds": "babel-node runner.js validateProductsTnveds",
+    "fetchAndFixIncomes": "babel-node runner.js fetchAndFixIncomes"
   },
   "dependencies": {
-    "jsdom": "^20.0.1"
+    "jsdom": "^20.0.1",
+    "@babel/core": "^7.19.6",
+    "@babel/node": "^7.20.0"
   }
 }

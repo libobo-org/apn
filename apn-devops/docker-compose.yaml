@@ -20,5 +20,33 @@ services:
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
     ports:
       - "5059:80"
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: ./apn-frontend/Dockerfile
+    container_name: apn-frontend
+    restart: always
+    ports:
+      - "80:80"
+
+  bff:
+    build:
+      context: ..
+      dockerfile: ./apn-data-processor/Dockerfile
+    container_name: apn-bff
+    restart: always
+    ports:
+      - "3000:3000"
+
+  backend:
+    build:
+      context: ..
+      dockerfile: ./apn-backend/Dockerfile
+    container_name: apn-backend
+    restart: always
+    ports:
+      - "4000:8080"
+
 volumes:
   pgdata:
