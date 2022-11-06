@@ -29,7 +29,7 @@ export default {
           return;
         }
         this.isLoading = true;
-        const response = await fetch(`http://localhost:3000/analyze/tnved-analyze?tnved=${this.tnvedInput}`, {
+        const response = await fetch(`http://${process.env.VUE_APP_BFF_URL}/analyze/tnved-analyze?tnved=${this.tnvedInput}`, {
           mode: 'cors',
           headers: {
             "Access-Control-Allow-Origin": "*",
