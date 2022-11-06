@@ -5,11 +5,9 @@ import bo.Rights
 import database.tables.auth.Users
 import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.auth.*
 import io.ktor.server.plugins.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -102,7 +100,7 @@ suspend fun ApplicationCall.checkAuth(): List<Rights> {
             Rights.listFromString(it)
         }
     }.firstOrNull() ?: run {
-        this.respond(HttpStatusCode(418, "Как ты сюда вообще попал?"))
+        this.respond(HttpStatusCode.Unauthorized, "Bad credentials")
         return emptyList()
     }
     return rights
