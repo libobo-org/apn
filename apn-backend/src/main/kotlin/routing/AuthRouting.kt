@@ -2,7 +2,6 @@ package routing
 
 import bo.Rights
 import database.dbo.UserDBO
-import database.tables.auth.Users
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -10,7 +9,6 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.dao.exceptions.EntityNotFoundException
-import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.mindrot.jbcrypt.BCrypt
 import routing.token.TokenGenerator
@@ -45,23 +43,8 @@ fun Route.authRouting() {
             )
         }
         post("new") {
-            val token = call.request.header("Authorization") ?: run {
-                call.respond(HttpStatusCode.Unauthorized, "Bad credentials")
-                return@post
-            }
-            val rights = transaction {
-                Users.select {
-                    Users.token eq token
-                }.map {
-                    it[Users.rights]
-                }.map {
-                    Rights.listFromString(it)
-                }
-            }.firstOrNull() ?: run {
-                call.respond(HttpStatusCode(418, "Как ты сюда вообще попал?"))
-                return@post
-            }
-            if (!rights.contains(Rights.CREATE_USERS)) {
+            val rights = call.checkAuth()
+            if (!rights.contains(Rights.ADMIN)) {
                 call.respond(HttpStatusCode.Forbidden)
                 return@post
             }

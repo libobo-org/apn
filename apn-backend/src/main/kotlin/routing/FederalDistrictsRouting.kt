@@ -1,6 +1,8 @@
 package routing
 
+import bo.Rights
 import database.tables.FederalDistricts
+import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -12,6 +14,11 @@ import org.jetbrains.exposed.sql.transactions.transaction
 fun Route.federalDistrictsRouting() {
     route("federalDistricts") {
         get {
+            val rights = call.checkAuth()
+            if (!rights.contains(Rights.READ)) {
+                call.respond(HttpStatusCode.Forbidden)
+                return@get
+            }
             val districts = transaction {
                 FederalDistricts.selectAll()
                     .map { it.toFederalDistrictDTO() }

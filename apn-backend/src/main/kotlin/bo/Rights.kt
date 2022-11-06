@@ -1,27 +1,27 @@
 package bo
 
 enum class Rights(val str: String) {
-    CREATE_USERS("CREATE_USERS"), READ_ONLY("READ_ONLY");
+    ADMIN("ADMIN"), READ("READ");
 
     companion object {
         fun fromString(str: String): Rights {
             return when (str) {
-                CREATE_USERS.str -> CREATE_USERS
-                READ_ONLY.str -> READ_ONLY
+                ADMIN.str -> ADMIN
+                READ.str -> READ
                 else -> throw IllegalArgumentException("Unknown right id")
             }
         }
 
         fun defaultRightsList(): List<Rights> {
-            return listOf(READ_ONLY)
+            return listOf(READ)
         }
 
         fun defaultRightsListAsString(): String {
-            return listOf(READ_ONLY).joinToString(",")
+            return listOf(READ).joinToString(",")
         }
 
         fun adminRightsListAsString(): String {
-            return listOf(READ_ONLY, CREATE_USERS).joinToString(",")
+            return listOf(READ, ADMIN).joinToString(",")
         }
 
         fun listFromString(string: String): List<Rights> {
