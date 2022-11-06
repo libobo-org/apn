@@ -1,8 +1,17 @@
 package routing
 
 import bo.ExportOrImport
+import bo.Rights
+import database.tables.auth.Users
+import io.ktor.http.*
 import io.ktor.server.application.*
+import io.ktor.server.auth.*
 import io.ktor.server.plugins.*
+import io.ktor.server.request.*
+import io.ktor.server.response.*
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.transactions.transaction
 
 fun ApplicationCall.getOffset(): Long? {
     val offsetStr = this.request.queryParameters["offset"]
@@ -77,4 +86,24 @@ fun ApplicationCall.getExportOrImport(): ExportOrImport? {
         }
     }
     return exOrIm
+}
+
+suspend fun ApplicationCall.checkAuth(): List<Rights> {
+    val token = this.request.header("Authorization") ?: run {
+        this.respond(HttpStatusCode.Unauthorized, "Bad credentials")
+        return emptyList()
+    }
+    val rights = transaction {
+        Users.select {
+            Users.token eq token
+        }.map {
+            it[Users.rights]
+        }.map {
+            Rights.listFromString(it)
+        }
+    }.firstOrNull() ?: run {
+        this.respond(HttpStatusCode(418, "Как ты сюда вообще попал?"))
+        return emptyList()
+    }
+    return rights
 }

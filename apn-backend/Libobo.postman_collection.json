@@ -1,0 +1,335 @@
+{
+	"info": {
+		"_postman_id": "a0273cde-6dce-4abf-88c6-e8ea276dfe00",
+		"name": "Libobo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "392910"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/auth",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"admin\"\n    \"password\": \"root\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/auth",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/auth/new",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "a6e19c46-2d92-4309-adc3-be3d14b2e788",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"user2\"\n    \"name\": \"usernam2\"\n    \"password\": \"test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/auth/new",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"new"
+					],
+					"query": [
+						{
+							"key": "Authorization",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/tnveds/all?limit=20&offset=0",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "a6e19c46-2d92-4309-adc3-be3d14b2e788",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/tnveds/all?limit=20&offset=0",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tnveds",
+						"all"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "20"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/tnveds/01",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "a6e19c46-2d92-4309-adc3-be3d14b2e788",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/tnveds/01",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tnveds",
+						"01"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/tnveds/by_name?limit=20&offset=0&tnved_name=мясо морож осл",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "a6e19c46-2d92-4309-adc3-be3d14b2e788",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/tnveds/by_name?limit=20&offset=0&tnved_name=мясо морож осл",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tnveds",
+						"by_name"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "20"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						},
+						{
+							"key": "Auth",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "tnved_name",
+							"value": "мясо морож осл"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/notes?limit=20&offset=0",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "a6e19c46-2d92-4309-adc3-be3d14b2e788",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/notes?limit=20&offset=0",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"notes"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "20"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/countries?limit=20&offset=0",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "a6e19c46-2d92-4309-adc3-be3d14b2e788",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/countries?limit=20&offset=0",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"countries"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "20"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/federalDistricts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "a6e19c46-2d92-4309-adc3-be3d14b2e788",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/federalDistricts",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"federalDistricts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/subjects",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "a6e19c46-2d92-4309-adc3-be3d14b2e788",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/subjects",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"subjects"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "a6e19c46-2d92-4309-adc3-be3d14b2e788",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/rights",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "a6e19c46-2d92-4309-adc3-be3d14b2e788",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/rights",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rights"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

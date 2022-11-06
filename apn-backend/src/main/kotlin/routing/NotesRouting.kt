@@ -1,5 +1,6 @@
 package routing
 
+import bo.Rights
 import database.tables.Notes
 import dto.NoteDTO
 import io.ktor.http.*
@@ -21,6 +22,11 @@ import java.util.Date
 fun Route.notesRouting() {
     route("notes") {
         get {
+            val rights = call.checkAuth()
+            if (!rights.contains(Rights.READ)) {
+                call.respond(HttpStatusCode.Forbidden)
+                return@get
+            }
             val limit = call.getLimitOrThrow()
             val offset = call.getOffset()
             val tnved = call.getTnved()
@@ -74,7 +80,12 @@ fun Route.notesRouting() {
             }
             call.respond(notesList)
         }
-        post("/upload") {
+        /*post("/upload") {
+            val rights = call.checkAuth()
+            if (!rights.contains(Rights.READ)) {
+                call.respond(HttpStatusCode.Forbidden)
+                return@post
+            }
             val multipartData = call.receiveMultipart()
             val contentList = mutableListOf<ByteArray>()
             val nameList = mutableListOf<String>()
@@ -98,7 +109,7 @@ fun Route.notesRouting() {
                 file.writeBytes(bytes)
             }
             call.respond(HttpStatusCode.OK)
-        }
+        }*/
     }
 }
 
