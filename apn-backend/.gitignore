@@ -4,6 +4,3 @@
 /build
 idea/
 /.gradle
-src/main/resources/data
-docker-compose.yml
-src/main/kotlin/DatabaseMetadata.kt
